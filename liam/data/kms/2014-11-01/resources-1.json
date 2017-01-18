@@ -54,10 +54,9 @@
         "request":{
           "operation": "DescribeKey",
           "params": [
-            { "target": "KeyId", "source": "identifier", "name": "Keyid"}
+            { "target": "KeyId", "source": "identifier", "name": "KeyId"}
           ]
-        },
-        "path": "KeyMetadata"
+        }
       },
       "actions": {
         "Delete":{
@@ -78,7 +77,7 @@
           "name": "AliasName"
         }
       ],
-      "shape": "KeyMetadata",
+      "shape": "AliasListEntry",
       "load":{
         "request":{
           "operation": "DescribeKey",
