@@ -1,0 +1,105 @@
+{
+  "service": {
+    "actions": {
+    },
+    "has": {
+      "Key": {
+        "resource": {
+          "type": "Key",
+          "identifiers": [
+            { "target": "KeyId", "source": "input" }
+          ]
+        }
+      },
+      "Alias": {
+        "resource": {
+          "type": "Alias",
+          "identifiers": [
+            { "target": "AliasName", "source": "input"}
+          ]
+        }
+      }
+    },
+    "hasMany": {
+      "Keys": {
+        "request": { "operation": "ListKeys"},
+        "resource": {
+          "type": "Key",
+          "identifiers": [
+            { "target": "KeyId", "source": "response", "path": "Keys[].KeyId"}
+          ]
+        }
+      },
+      "Aliases":{
+        "request": { "operation": "ListAliases"},
+        "resource": {
+          "type": "Alias",
+          "identifiers": [
+            { "target": "AliasName", "source": "response", "path": "Aliases[].AliasName"}
+          ]
+        }
+      }
+
+    }
+  },
+  "resources": {
+    "Key": {
+      "identifiers": [
+        {
+          "name": "KeyId"
+        }
+      ],
+      "shape": "KeyMetadata",
+      "load":{
+        "request":{
+          "operation": "DescribeKey",
+          "params": [
+            { "target": "KeyId", "source": "identifier", "name": "Keyid"}
+          ]
+        },
+        "path": "KeyMetadata"
+      },
+      "actions": {
+        "Delete":{
+          "request": {
+            "operation": "ScheduleKeyDeletion",
+            "params": [
+              { "target": "KeyId", "source": "identifier", "name": "KeyId" }
+            ]
+          }
+        }
+      },
+      "has": {},
+      "hasMany": {}
+    },
+    "Alias": {
+      "identifiers": [
+        {
+          "name": "AliasName"
+        }
+      ],
+      "shape": "KeyMetadata",
+      "load":{
+        "request":{
+          "operation": "DescribeKey",
+          "params": [
+            { "target": "KeyId", "source": "identifier", "name": "AliasName"}
+          ]
+        },
+        "path": "KeyMetadata"
+      },
+      "actions": {
+        "Delete":{
+          "request": {
+            "operation": "DeleteAlias",
+            "params": [
+              { "target": "AliasName", "source": "identifier", "name": "AliasName" }
+            ]
+          }
+        }
+      },
+      "has": {},
+      "hasMany": {}
+    }
+  }
+}
