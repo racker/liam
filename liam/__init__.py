@@ -34,7 +34,7 @@ class Scanner(object):
                         session=self.session
                     )
                     found_items = col_obj.scan()
-                    found.append(found_items)
+                    found.extend(found_items)
         return found
 
     def get_account_id(self):
