@@ -1,0 +1,126 @@
+{
+  "service": {
+    "actions": {
+    },
+    "has": {
+      "CacheCluster": {
+        "resource": {
+          "type": "CacheCluster",
+          "identifiers": [
+            { "target": "CacheClusterId", "source": "input" }
+          ]
+        }
+      },
+      "CacheSubnetGroup": {
+        "resource": {
+          "type": "CacheSubnetGroup",
+          "identifiers": [
+            { "target": "CacheSubnetGroupName", "source": "input" }
+          ]
+        }
+      },
+      "Snapshot": {
+        "resource": {
+          "type": "Snapshot",
+          "identifiers": [
+            { "target": "SnapshotName", "source": "input" }
+          ]
+        }
+      }
+    },
+    "hasMany": {
+      "CacheClusters": {
+        "request": { "operation": "DescribeCacheClusters"},
+        "resource": {
+          "type": "CacheCluster",
+          "identifiers": [
+            { "target": "CacheClusterId", "source": "response", "path": "CacheClusters[].CacheClusterId"}
+          ]
+        }
+      },
+      "CacheSubnetGroups": {
+        "request": { "operation": "DescribeCacheSubnetGroups"},
+        "resource": {
+          "type": "CacheSubnetGroup",
+          "identifiers": [
+            { "target": "CacheSubnetGroupName", "source": "response", "path": "CacheSubnetGroups[].CacheSubnetGroupName"}
+          ]
+        }
+      },
+      "Snapshots": {
+        "request": { "operation": "DescribeSnapshots"},
+        "resource": {
+          "type": "Snapshot",
+          "identifiers": [
+            { "target": "SnapshotsName", "source": "response", "path": "Snapshots[].SnapshotName"}
+          ]
+        }
+      }
+    }
+  },
+  "resources": {
+    "CacheCluster": {
+      "identifiers": [
+        {
+          "name": "CacheClusterId"
+        }
+      ],
+      "shape": "CacheCluster",
+      "load":{
+        "request":{
+          "operation": "DescribeCacheClusters",
+          "params": [
+            { "target": "CacheClusterId", "source": "identifier", "name": "CacheClusterId"}
+          ]
+        },
+        "path": "CacheClusters[0]"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    },
+    "CacheSubnetGroup": {
+      "identifiers": [
+        {
+          "name": "CacheSubnetGroupName"
+        }
+      ],
+      "shape": "CacheSubnetGroup",
+      "load":{
+        "request":{
+          "operation": "DescribeCacheSubnetGroups",
+          "params": [
+            { "target": "CacheSubnetGroupName", "source": "identifier", "name": "CacheSubnetGroupName"}
+          ]
+        },
+        "path": "CacheSubnetGroups[0]"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    },
+    "Snapshot": {
+      "identifiers": [
+        {
+          "name": "SnapshotName"
+        }
+      ],
+      "shape": "Snapshot",
+      "load":{
+        "request":{
+          "operation": "DescribeSnapshots",
+          "params": [
+            { "target": "SnapshotName", "source": "identifier", "name": "SnapshotName"}
+          ]
+        },
+        "path": "Snapshots[0]"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    }
+  }
+}
