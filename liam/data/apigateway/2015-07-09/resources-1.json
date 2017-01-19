@@ -1,0 +1,49 @@
+{
+  "service": {
+    "actions": {
+    },
+    "has": {
+      "RestApi": {
+        "resource": {
+          "type": "RestApi",
+          "identifiers": [
+            { "target": "id", "source": "input" }
+          ]
+        }
+      }
+    },
+    "hasMany": {
+      "RestApis": {
+        "request": { "operation": "GetRestApis"},
+        "resource": {
+          "type": "RestApi",
+          "identifiers": [
+            { "target": "restApiId", "source": "response", "path": "items[].id"}
+          ]
+        }
+      }
+    }
+  },
+  "resources": {
+    "RestApi": {
+      "identifiers": [
+        {
+          "name": "restApiId"
+        }
+      ],
+      "shape": "RestApi",
+      "load":{
+        "request":{
+          "operation": "GetRestApi",
+          "params": [
+            { "target": "restApiId", "source": "identifier", "name": "restApiId"}
+          ]
+        }
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    }
+  }
+}
