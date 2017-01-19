@@ -1,0 +1,88 @@
+{
+  "service": {
+    "actions": {
+    },
+    "has": {
+      "LaunchConfiguration": {
+        "resource": {
+          "type": "LaunchConfiguration",
+          "identifiers": [
+            { "target": "LaunchConfigurationName", "source": "input" }
+          ]
+        }
+      },
+      "AutoScalingGroup": {
+        "resource": {
+          "type": "AutoScalingGroup",
+          "identifiers": [
+            { "target": "AutoScalingGroupName", "source": "input" }
+          ]
+        }
+      }
+    },
+    "hasMany": {
+      "LaunchConfigurations": {
+        "request": { "operation": "DescribeLaunchConfigurations"},
+        "resource": {
+          "type": "LaunchConfiguration",
+          "identifiers": [
+            { "target": "LaunchConfigurationName", "source": "response", "path": "LaunchConfigurations[].LaunchConfigurationName"}
+          ]
+        }
+      },
+      "AutoScalingGroups": {
+        "request": { "operation": "DescribeAutoScalingGroups"},
+        "resource": {
+          "type": "AutoScalingGroup",
+          "identifiers": [
+            { "target": "AutoScalingGroupName", "source": "response", "path": "AutoScalingGroups[].AutoScalingGroupName"}
+          ]
+        }
+      }
+    }
+  },
+  "resources": {
+    "LaunchConfiguration": {
+      "identifiers": [
+        {
+          "name": "LaunchConfigurationName"
+        }
+      ],
+      "shape": "LaunchConfiguration",
+      "load":{
+        "request":{
+          "operation": "DescribeLaunchConfigurations",
+          "params": [
+            { "target": "LaunchConfigurationNames[]", "source": "identifier", "name": "LaunchConfigurationName"}
+          ]
+        },
+        "path": "LaunchConfigurations[0]"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    },
+    "AutoScalingGroup": {
+      "identifiers": [
+        {
+          "name": "AutoScalingGroupName"
+        }
+      ],
+      "shape": "AutoScalingGroup",
+      "load":{
+        "request":{
+          "operation": "DescribeAutoScalingGroups",
+          "params": [
+            { "target": "AutoScalingGroupNames[]", "source": "identifier", "name": "AutoScalingGroupName"}
+          ]
+        },
+        "path": "AutoScalingGroups[0]"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    }
+  }
+}
