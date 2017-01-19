@@ -1,0 +1,50 @@
+{
+  "service": {
+    "actions": {
+    },
+    "has": {
+      "Cluster": {
+        "resource": {
+          "type": "Cluster",
+          "identifiers": [
+            { "target": "ClusterArn", "source": "input" }
+          ]
+        }
+      }
+    },
+    "hasMany": {
+      "Clusters": {
+        "request": { "operation": "ListClusters"},
+        "resource": {
+          "type": "Cluster",
+          "identifiers": [
+            { "target": "ClusterArn", "source": "response", "path": "clusterArns[]"}
+          ]
+        }
+      }
+    }
+  },
+  "resources": {
+    "Cluster": {
+      "identifiers": [
+        {
+          "name": "ClusterArn"
+        }
+      ],
+      "shape": "Cluster",
+      "load":{
+        "request":{
+          "operation": "DescribeClusters",
+          "params": [
+            { "target": "clusters[]", "source": "identifier", "name": "ClusterArn"}
+          ]
+        },
+        "path": "clusters[0]"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    }
+  }
+}
