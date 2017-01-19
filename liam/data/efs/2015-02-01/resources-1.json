@@ -1,0 +1,51 @@
+{
+  "service": {
+    "actions": {
+    },
+    "has": {
+      "FileSystem": {
+        "resource": {
+          "type": "FileSystem",
+          "identifiers": [
+            { "target": "FileSystemId", "source": "input" }
+          ]
+        }
+      }
+    },
+    "hasMany": {
+      "FileSystems": {
+        "request": { "operation": "DescribeFileSystems"},
+        "resource": {
+          "type": "FileSystem",
+          "identifiers": [
+            { "target": "FileSystemId", "source": "response", "path": "FileSystems[]"}
+          ]
+        },
+        "path": "FileSystems[]"
+      }
+    }
+  },
+  "resources": {
+    "FileSystem": {
+      "identifiers": [
+        {
+          "name": "FileSystemId"
+        }
+      ],
+      "shape": "FileSystemDescription",
+      "load":{
+        "request":{
+          "operation": "DescribeFileSystems",
+          "params": [
+            { "target": "FileSystems[]", "source": "identifier", "name": "FileSystemId"}
+          ]
+        },
+        "path": "FileSystems[0]"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    }
+  }
+}
