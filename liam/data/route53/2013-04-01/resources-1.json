@@ -1,0 +1,50 @@
+{
+  "service": {
+    "actions": {
+    },
+    "has": {
+      "HostedZone": {
+        "resource": {
+          "type": "HostedZone",
+          "identifiers": [
+            { "target": "Id", "source": "input" }
+          ]
+        }
+      }
+    },
+    "hasMany": {
+      "HostedZones": {
+        "request": { "operation": "ListHostedZones"},
+        "resource": {
+          "type": "HostedZone",
+          "identifiers": [
+            { "target": "Id", "source": "response", "path": "HostedZones[].Id"}
+          ]
+        }
+      }
+    }
+  },
+  "resources": {
+    "HostedZone": {
+      "identifiers": [
+        {
+          "name": "Id"
+        }
+      ],
+      "shape": "HostedZone",
+      "load":{
+        "request":{
+          "operation": "GetHostedZone",
+          "params": [
+            { "target": "Id", "source": "identifier", "name": "Id"}
+          ]
+        },
+        "path": "HostedZone"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    }
+  }
+}
