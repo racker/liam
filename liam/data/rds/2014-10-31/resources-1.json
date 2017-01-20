@@ -1,0 +1,50 @@
+{
+  "service": {
+    "actions": {
+    },
+    "has": {
+      "DBInstance": {
+        "resource": {
+          "type": "DBInstance",
+          "identifiers": [
+            { "target": "DBInstanceIdentifier", "source": "input" }
+          ]
+        }
+      }
+    },
+    "hasMany": {
+      "DBInstances": {
+        "request": { "operation": "DescribeDBInstances"},
+        "resource": {
+          "type": "DBInstance",
+          "identifiers": [
+            { "target": "DBInstanceIdentifier", "source": "response", "path": "DBInstances[].DBInstanceIdentifier"}
+          ]
+        }
+      }
+    }
+  },
+  "resources": {
+    "DBInstance": {
+      "identifiers": [
+        {
+          "name": "DBInstanceIdentifier"
+        }
+      ],
+      "shape": "DBInstance",
+      "load":{
+        "request":{
+          "operation": "DescribeDBInstances",
+          "params": [
+            { "target": "DBInstanceIdentifier", "source": "identifier", "name": "DBInstanceIdentifier"}
+          ]
+        },
+        "path": "DBInstances[0]"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    }
+  }
+}
