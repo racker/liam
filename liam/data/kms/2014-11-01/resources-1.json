@@ -77,7 +77,7 @@
           "name": "AliasName"
         }
       ],
-      "shape": "AliasListEntry",
+      "shape": "KeyMetadata",
       "load":{
         "request":{
           "operation": "DescribeKey",
