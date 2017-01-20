@@ -1,0 +1,50 @@
+{
+  "service": {
+    "actions": {
+    },
+    "has": {
+      "Function": {
+        "resource": {
+          "type": "Function",
+          "identifiers": [
+            { "target": "FunctionName", "source": "input" }
+          ]
+        }
+      }
+    },
+    "hasMany": {
+      "Functions": {
+        "request": { "operation": "ListFunctions"},
+        "resource": {
+          "type": "Function",
+          "identifiers": [
+            { "target": "FunctionName", "source": "response", "path": "Functions[].FunctionName"}
+          ]
+        }
+      }
+    }
+  },
+  "resources": {
+    "Function": {
+      "identifiers": [
+        {
+          "name": "FunctionName"
+        }
+      ],
+      "shape": "FunctionConfiguration",
+      "load":{
+        "request":{
+          "operation": "GetFunction",
+          "params": [
+            { "target": "FunctionName", "source": "identifier", "name": "FunctionName"}
+          ]
+        },
+        "path": "Configuration"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    }
+  }
+}
