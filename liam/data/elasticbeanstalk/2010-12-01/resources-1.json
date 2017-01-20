@@ -1,0 +1,88 @@
+{
+  "service": {
+    "actions": {
+    },
+    "has": {
+      "Application": {
+        "resource": {
+          "type": "Application",
+          "identifiers": [
+            { "target": "ApplicationName", "source": "input" }
+          ]
+        }
+      },
+      "Environment": {
+        "resource": {
+          "type": "Environment",
+          "identifiers": [
+            { "target": "EnvironmentName", "source": "input" }
+          ]
+        }
+      }
+    },
+    "hasMany": {
+      "Applications": {
+        "request": { "operation": "DescribeApplications"},
+        "resource": {
+          "type": "Application",
+          "identifiers": [
+            { "target": "ApplicationName", "source": "response", "path": "Applications[].ApplicationName"}
+          ]
+        }
+      },
+      "Environments": {
+        "request": { "operation": "DescribeEnvironments"},
+        "resource": {
+          "type": "Environment",
+          "identifiers": [
+            { "target": "EnvironmentName", "source": "response", "path": "Environments[].EnvironmentName"}
+          ]
+        }
+      }
+    }
+  },
+  "resources": {
+    "Application": {
+      "identifiers": [
+        {
+          "name": "ApplicationName"
+        }
+      ],
+      "shape": "ApplicationDescription",
+      "load":{
+        "request":{
+          "operation": "DescribeApplications",
+          "params": [
+            { "target": "ApplicationNames[]", "source": "identifier", "name": "ApplicationName"}
+          ]
+        },
+        "path": "Applications[0]"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    },
+    "Environment": {
+      "identifiers": [
+        {
+          "name": "EnvironmentName"
+        }
+      ],
+      "shape": "EnvironmentDescription",
+      "load":{
+        "request":{
+          "operation": "DescribeEnvironments",
+          "params": [
+            { "target": "EnvironmentNames[]", "source": "identifier", "name": "EnvironmentName"}
+          ]
+        },
+        "path": "Environments[0]"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    }
+  }
+}
