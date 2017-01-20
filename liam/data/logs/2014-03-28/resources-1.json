@@ -1,0 +1,50 @@
+{
+  "service": {
+    "actions": {
+    },
+    "has": {
+      "LogGroup": {
+        "resource": {
+          "type": "LogGroup",
+          "identifiers": [
+            { "target": "LogGroupName", "source": "input" }
+          ]
+        }
+      }
+    },
+    "hasMany": {
+      "LogGroups": {
+        "request": { "operation": "DescribeLogGroups"},
+        "resource": {
+          "type": "LogGroup",
+          "identifiers": [
+            { "target": "LogGroupName", "source": "response", "path": "logGroups[].logGroupName"}
+          ]
+        }
+      }
+    }
+  },
+  "resources": {
+    "LogGroup": {
+      "identifiers": [
+        {
+          "name": "LogGroupName"
+        }
+      ],
+      "shape": "LogGroup",
+      "load":{
+        "request":{
+          "operation": "DescribeLogGroups",
+          "params": [
+            { "target": "logGroupNamePrefix", "source": "identifier", "name": "LogGroupName"}
+          ]
+        },
+        "path": "logGroups[0]"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    }
+  }
+}
