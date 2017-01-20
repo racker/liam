@@ -1,0 +1,50 @@
+{
+  "service": {
+    "actions": {
+    },
+    "has": {
+      "LoadBalancer": {
+        "resource": {
+          "type": "LoadBalancer",
+          "identifiers": [
+            { "target": "LoadBalancerArn", "source": "input" }
+          ]
+        }
+      }
+    },
+    "hasMany": {
+      "LoadBalancers": {
+        "request": { "operation": "DescribeLoadBalancers"},
+        "resource": {
+          "type": "LoadBalancer",
+          "identifiers": [
+            { "target": "LoadBalancerArn", "source": "response", "path": "LoadBalancers[].LoadBalancerArn"}
+          ]
+        }
+      }
+    }
+  },
+  "resources": {
+    "LoadBalancer": {
+      "identifiers": [
+        {
+          "name": "LoadBalancerArn"
+        }
+      ],
+      "shape": "LoadBalancer",
+      "load":{
+        "request":{
+          "operation": "DescribeLoadBalancers",
+          "params": [
+            { "target": "LoadBalancerArns[]", "source": "identifier", "name": "LoadBalancerArn"}
+          ]
+        },
+        "path": "LoadBalancers[0]"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    }
+  }
+}
