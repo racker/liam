@@ -1,40 +1,48 @@
 import os
 import boto3
 from botocore.exceptions import ClientError
+import botocore.session
 
 from arn import ARN
+
+
+def setup_boto3_session(creds):
+    """Gets a boto session with the liam resources inserted"""
+    session = botocore.session.get_session()
+    loader = session.get_component('data_loader')
+
+    # Because we are overwriting some botocore paginators we need our files to
+    # load first. Append will work fine once changes are merged upstream
+    loader.search_paths.insert(
+        0, os.path.join(os.path.dirname(__file__), 'data')
+    )
+    session = boto3.Session(botocore_session=session, **creds)
+    return session
 
 
 class Scanner(object):
 
     def __init__(self, creds, session=None):
         if not session:
-            self.session = self._init_boto_session(creds)
+            self.session = setup_boto3_session(creds)
             self.account_id = self.get_account_id()
-
-    def _init_boto_session(self, creds):
-        # TODO: handle
-        session = boto3.Session(**creds)
-        session._loader.search_paths.append(
-            os.path.join(os.path.dirname(__file__), 'data'))
-        return session
 
     def full_scan(self):
         resources = self.session.get_available_resources()
-        found = []
+        found = {}
         for resource_name in resources:
+            found[resource_name] = {}
             for region_name in self.session.get_available_regions(resource_name):
-                r = self.session.resource(resource_name, region_name)
-                for boto_collection in r.meta.resource_model.collections:
-                    col_obj = Collection(
-                        service_name=resource_name,
-                        region_name=region_name,
-                        account_id=self.account_id,
-                        collection_name=boto_collection.name,
-                        session=self.session
-                    )
-                    found_items = col_obj.scan()
-                    found.extend(found_items)
+
+                resource = Resource(
+                    service_name=resource_name,
+                    region_name=region_name,
+                    account_id=self.account_id,
+                    session=self.session
+                )
+                found_items = resource.scan()
+                found[resource_name][region_name] = found_items
+            print found
         return found
 
     def get_account_id(self):
@@ -48,6 +56,35 @@ class Scanner(object):
 
     def get_available_resources(self):
         return self.session.get_available_resources()
+
+
+class Resource(object):
+    def __init__(self, service_name, region_name, account_id, session):
+        self.service_name = service_name
+        self.region_name = region_name
+        self.account_id = account_id
+        self.session = session
+        self.boto_resource = self._init_boto_resource()
+
+    def _init_boto_resource(self):
+        return self.session.resource(self.service_name, self.region_name)
+
+    def get_available_collections(self):
+        return self.boto_resource.meta.resource_model.collections
+
+    def scan(self):
+        found = []
+        for boto_collection in self.get_available_collections():
+            col_obj = Collection(
+                service_name=self.service_name,
+                region_name=self.region_name,
+                account_id=self.account_id,
+                collection_name=boto_collection.name,
+                session=self.session
+            )
+            found_items = col_obj.scan()
+            found.extend(found_items)
+        return found
 
 
 class Collection(object):
@@ -93,5 +130,6 @@ class Collection(object):
                 pass
             else:
                 raise
+        if found_resources:
             print found_resources
         return found_resources
