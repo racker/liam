@@ -1,0 +1,50 @@
+{
+  "service": {
+    "actions": {
+    },
+    "has": {
+      "Stream": {
+        "resource": {
+          "type": "Stream",
+          "identifiers": [
+            { "target": "StreamName", "source": "input" }
+          ]
+        }
+      }
+    },
+    "hasMany": {
+      "Streams": {
+        "request": { "operation": "ListStreams"},
+        "resource": {
+          "type": "Stream",
+          "identifiers": [
+            { "target": "StreamName", "source": "response", "path": "StreamNames[]"}
+          ]
+        }
+      }
+    }
+  },
+  "resources": {
+    "Stream": {
+      "identifiers": [
+        {
+          "name": "StreamName"
+        }
+      ],
+      "shape": "StreamDescription",
+      "load":{
+        "request":{
+          "operation": "DescribeStream",
+          "params": [
+            { "target": "StreamName", "source": "identifier", "name": "StreamName"}
+          ]
+        },
+        "path": "StreamDescription"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    }
+  }
+}
