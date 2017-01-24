@@ -1,0 +1,50 @@
+{
+  "service": {
+    "actions": {
+    },
+    "has": {
+      "DeliveryStream": {
+        "resource": {
+          "type": "DeliveryStream",
+          "identifiers": [
+            { "target": "DeliveryStreamName", "source": "input" }
+          ]
+        }
+      }
+    },
+    "hasMany": {
+      "DeliveryStreams": {
+        "request": { "operation": "ListDeliveryStreams"},
+        "resource": {
+          "type": "DeliveryStream",
+          "identifiers": [
+            { "target": "DeliveryStreamName", "source": "response", "path": "DeliveryStreamNames[]"}
+          ]
+        }
+      }
+    }
+  },
+  "resources": {
+    "DeliveryStream": {
+      "identifiers": [
+        {
+          "name": "DeliveryStreamName"
+        }
+      ],
+      "shape": "DeliveryStreamDescription",
+      "load":{
+        "request":{
+          "operation": "DescribeDeliveryStream",
+          "params": [
+            { "target": "DeliveryStreamName", "source": "identifier", "name": "DeliveryStreamName"}
+          ]
+        },
+        "path": "DeliveryStreamDescription"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    }
+  }
+}
