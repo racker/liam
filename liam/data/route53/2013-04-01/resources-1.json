@@ -10,6 +10,14 @@
             { "target": "Id", "source": "input" }
           ]
         }
+      },
+      "HealthCheck": {
+        "resource": {
+          "type": "HealthCheck",
+          "identifiers": [
+            { "target": "Id", "source": "input" }
+          ]
+        }
       }
     },
     "hasMany": {
@@ -19,6 +27,15 @@
           "type": "HostedZone",
           "identifiers": [
             { "target": "Id", "source": "response", "path": "HostedZones[].Id"}
+          ]
+        }
+      },
+      "HealthChecks": {
+        "request": { "operation": "ListHealthChecks"},
+        "resource": {
+          "type": "HealthCheck",
+          "identifiers": [
+            { "target": "Id", "source": "response", "path": "HealthChecks[].Id"}
           ]
         }
       }
@@ -40,6 +57,27 @@
           ]
         },
         "path": "HostedZone"
+      },
+      "actions": {
+      },
+      "has": {},
+      "hasMany": {}
+    },
+    "HealthCheck": {
+      "identifiers": [
+        {
+          "name": "Id"
+        }
+      ],
+      "shape": "HealthCheck",
+      "load":{
+        "request":{
+          "operation": "GetHealthCheck",
+          "params": [
+            { "target": "HealthCheckId", "source": "identifier", "name": "Id"}
+          ]
+        },
+        "path": "HealthCheck"
       },
       "actions": {
       },
