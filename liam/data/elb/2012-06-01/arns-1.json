@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "resources": {
+    "LoadBalancer": {
+      "arn": {
+        "formatString": "arn:{partition}:elasticloadbalancing:{region}:{account-id}:loadbalancer/{load_balancer_name}"
+      }
+    },
+    "Tag": {}
+  }
+}

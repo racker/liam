@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "resources": {
+    "LoadBalancer": {
+      "arn": {
+        "dataPath": ["LoadBalancerArn"]
+      }
+    },
+    "Tag": {}
+  }
+}
