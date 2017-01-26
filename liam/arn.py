@@ -56,7 +56,7 @@ class Arn(object):
     def _get_account(self):
         # TODO: inject this into our session directly so we dont need to call
         if not self.account_id:
-            self.accoun_id = self.session.client(
+            self.account_id = self.session.client(
                 'sts').get_caller_identity()['Account']
         return self.account_id
 
@@ -77,8 +77,8 @@ class Arn(object):
                 mapping['service'] = self._get_service()
             elif key == 'region':
                 mapping['region'] = self._get_region()
-            elif key == 'account-id':
-                mapping['account-id'] = self._get_account()
+            elif key == 'account_id':
+                mapping['account_id'] = self._get_account()
             else:
                 mapping[key] = self._get_generic(key)
         return format_string.format(**mapping)
