@@ -3,7 +3,7 @@
   "resources": {
     "LoadBalancer": {
       "arn": {
-        "formatString": "arn:{partition}:elasticloadbalancing:{region}:{account-id}:loadbalancer/{load_balancer_name}"
+        "formatString": "arn:{partition}:elasticloadbalancing:{region}:{account_id}:loadbalancer/{load_balancer_name}"
       }
     },
     "Tag": {}
