@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "resources": {
+    "AccessKey": {},
+    "AccessKeyPair": {},
+    "AccessKeyLastUsed": {},
+    "AccountPasswordPolicy": {},
+    "AccountSummary": {},
+    "AssumeRolePolicy": {},
+    "Group": {},
+    "GroupPolicy": {},
+    "InstanceProfile": {},
+    "LoginProfile": {},
+    "MfaDevice": {},
+    "Policy": {},
+    "PolicyVersion": {},
+    "Role": {},
+    "RolePolicy": {},
+    "SamlProvider": {},
+    "ServerCertificate": {
+      "arn": {
+        "dataPath": ["ServerCertificateMetadata", "Arn"]
+      }
+    },
+    "SigningCertificate": {},
+    "SSHPublicKey": {},
+    "User": {},
+    "UserPolicy": {},
+    "VirtualMfaDevice": {
+      "arn": {
+        "dataPath": ["SerialNumber"]
+      }
+    }
+  }
+}

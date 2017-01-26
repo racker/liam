@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "resources": {
+    "FileSystem": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:file-system/{file_system_id}"
+      }
+    }
+  }
+}

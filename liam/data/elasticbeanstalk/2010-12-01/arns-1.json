@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "resources": {
+    "Application": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:application/{application_name}"
+      }
+    },
+    "Environment": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:environment/{environment_name}"
+      }
+    }
+  }
+}

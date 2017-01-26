@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "resources": {
+    "Event": {},
+    "Stack": {
+      "arn": {
+        "dataPath": ["StackId"]
+      }
+    },
+    "StackResource": {},
+    "StackResourceSummary": {}
+  }
+}

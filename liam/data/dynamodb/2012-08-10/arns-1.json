@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "resources": {
+    "Table": {
+      "arn": {
+        "dataPath": ["TableArn"]
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "resources": {
+    "Message": {
+    },
+    "Queue": {
+      "arn":{
+        "dataPath" : ["Attributes", "QueueArn"]
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "resources": {
+    "PlatformApplication": {},
+    "PlatformEndpoint": {},
+    "Subscription": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:{topic_name}:{subscription_id}"
+      }
+    },
+    "Topic": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:{topic_name}"
+      }
+    }
+  }
+}

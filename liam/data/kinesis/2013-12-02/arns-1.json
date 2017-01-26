@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "resources": {
+    "Stream": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:stream/{stream_name}"
+      }
+    }
+  }
+}

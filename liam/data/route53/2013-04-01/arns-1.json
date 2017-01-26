@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "resources": {
+    "HostedZone": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:::hostedzone:{id}"
+      }
+    },
+    "HealthCheck": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:::healthcheck:{id}"
+      }
+    }
+  }
+}

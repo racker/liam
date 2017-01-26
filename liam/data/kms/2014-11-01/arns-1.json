@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "resources": {
+    "Alias": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:alias/{alias_name}"
+      }
+    },
+    "Key": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:key/{key_id}"
+      }
+    }
+  }
+}

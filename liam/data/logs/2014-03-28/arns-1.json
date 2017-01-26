@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "resources": {
+    "LogGroup": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:log-group:{log_group_name}"
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "resources": {
+    "AutoScalingGroup": {
+      "arn": {
+        "dataPath": ["AutoScalingGroupARN"]
+      }
+    },
+    "LaunchConfiguration": {
+      "arn": {
+        "dataPath": ["LaunchConfigurationARN"]
+      }
+    }
+  }
+}

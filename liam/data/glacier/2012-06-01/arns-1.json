@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "resources": {
+    "Account": {},
+    "Archive": {},
+    "Job": {},
+    "Notification": {},
+    "Vault": {
+      "arn": {
+        "dataPath": ["VaultARN"]
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "resources": {
+    "DBInstance": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:db:{db_instance_identifier}"
+      }
+    },
+    "DBSecurityGroup": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:secgrp:{db_security_group_name}"
+      }
+    }
+  }
+}

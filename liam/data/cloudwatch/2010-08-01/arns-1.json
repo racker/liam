@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "resources": {
+    "Alarm": {
+      "arn": {
+        "dataPath": ["AlarmArn"]
+      }
+    },
+    "Metric": {}
+  }
+}

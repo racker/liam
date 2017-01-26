@@ -1,0 +1,34 @@
+{
+  "vesion": 1,
+  "resources": {
+    "Bucket": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:::{name}"
+      }
+    },
+    "BucketAcl": {},
+    "BucketCors": {},
+    "BucketLifecycle": {},
+    "BucketLogging": {},
+    "BucketNotification": {},
+    "BucketPolicy": {},
+    "BucketRequestPayment": {},
+    "BucketTagging": {},
+    "BucketVersioning": {},
+    "BucketWebsite": {},
+    "MultipartUpload": {},
+    "MultipartUploadPart": {},
+    "Object": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:::{bucket_name}/{key}"
+      }
+    },
+    "ObjectAcl": {},
+    "ObjectSummary": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:::{bucket_name}/{key}"
+      }
+    },
+    "ObjectVersion": {}
+  }
+}

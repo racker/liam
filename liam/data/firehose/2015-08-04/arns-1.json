@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "resources": {
+    "DeliveryStream": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:deliverystream/{delivery_stream_name}"
+      }
+    }
+  }
+}

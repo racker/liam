@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "resources": {
+    "RestApi": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:/restapis/{rest_api_id}"
+      }
+    },
+    "Tag": {}
+  }
+}

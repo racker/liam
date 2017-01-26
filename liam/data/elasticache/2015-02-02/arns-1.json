@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "resources": {
+    "CacheCluster": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:cluster/{cache_cluster_id}"
+      }
+    },
+    "CacheSubnetGroup": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:subnet/{cache_subnet_group_name}"
+      }
+    },
+    "Snapshot": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:snapshot/{snapshot_name}"
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "resources": {
+    "Cluster": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:cluster/{id}"
+      }
+    }
+  }
+}

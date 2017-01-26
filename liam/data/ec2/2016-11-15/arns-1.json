@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "resources": {
+    "ClassicAddress": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:classic-address/{public_ip}"
+      }
+    },
+    "DhcpOptions": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:dhcp-options/{id}"
+      }
+    },
+    "Image": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}::image/{id}"
+      }
+    },
+    "Instance": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:instance/{id}"
+      }
+    },
+    "InternetGateway": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:internet-gateway/{id}"
+      }
+    },
+    "KeyPair": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:key-pair/{name}"
+      }
+    },
+    "KeyPairInfo": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:key-pair/{name}"
+      }
+    },
+    "NetworkAcl": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:network-acl/{id}"
+      }
+    },
+    "NetworkInterface": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:network-interface/{id}"
+      }
+    },
+    "NetworkInterfaceAssociation": {},
+    "PlacementGroup": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:placement-group/{name}"
+      }
+    },
+    "Route": {},
+    "RouteTable": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:route-table/{id}"
+      }
+    },
+    "RouteTableAssociation": {},
+    "SecurityGroup": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:security-group/{id}"
+      }
+    },
+    "Snapshot": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}::snapshot/{id}"
+      }
+    },
+    "Subnet": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:subnet/{id}"
+      }
+    },
+    "Tag": {},
+    "Volume": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:volume/{id}"
+      }
+    },
+    "Vpc": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:vpc/{id}"
+      }
+    },
+    "VpcPeeringConnection": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:vpc-peering-connection/{id}"
+      }
+    },
+    "VpcAddress": {
+      "arn": {
+        "formatString": "arn:{partition}:{service}:{region}:{account_id}:eip/{allocation_id}"
+      }
+    }
+  }
+}
