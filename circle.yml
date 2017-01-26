@@ -1,14 +1,13 @@
 machine:
   python:
-    version: '2.7.10'
+    version: '2.7.12'
 
 dependencies:
   override:
     - pip -V
     - pip install -U pip
     - pip install -U tox tox-pyenv
-    - pyenv local 2.7.10 3.4.3 3.5.0
-
+    - pyenv local 2.7.12 3.5.2 3.6.0
 test:
   override:
     - tox -v
