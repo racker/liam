@@ -1,3 +1,4 @@
 # liam
+[![codecov](https://codecov.io/gh/racker/liam/branch/master/graph/badge.svg)](https://codecov.io/gh/racker/liam) [![requires](https://requires.io/github/racker/liam/requirements.svg?branch=master)](https://requires.io/github/celery/celery/requirements.svg?branch=master)
 
 ```I don't know who you are. I don't know what you want. If you are looking for ransom, I can tell you I don't have money. But what I do have are a very particular set of skills, skills I have acquired over a very long career. Skills that make me a nightmare for resources like you. If you let my arn go now, that'll be the end of it. I will not look for you, I will not pursue you. But if you don't, I will look for you, I will find you, and I will delete you.```

@@ -49,6 +49,7 @@ TEST_REQUIRES = [
     'coverage>=4.0.3',
     'moto>=0.4.31',
     'pytest>=2.9.1',
+    'pytest-cov>=2.4.0',
 ]
 
 
