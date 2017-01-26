@@ -33,6 +33,8 @@ class ARN(object):
         return self.components[5]
 
 
+# This work is loosely based on a monkey patch put together by Alec Posney
+# https://bitbucket.org/aposney/boto3-arn-patch
 class Arn(object):
     def __init__(self, session, boto_resource, account_id=None):
         self.session = session
