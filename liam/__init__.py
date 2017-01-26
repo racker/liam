@@ -7,7 +7,7 @@ from botocore.exceptions import ClientError
 import botocore.session
 
 
-def setup_boto3_session(creds):
+def setup_boto3_session(creds, region_name=None):
     """Gets a boto session with the liam resources inserted"""
     boto_core_session = botocore.session.get_session()
     loader = boto_core_session.get_component('data_loader')
@@ -17,7 +17,8 @@ def setup_boto3_session(creds):
     loader.search_paths.insert(
         0, os.path.join(os.path.dirname(__file__), 'data')
     )
-    session = boto3.Session(botocore_session=boto_core_session, **creds)
+    session = boto3.Session(botocore_session=boto_core_session,
+                            region_name=region_name, **creds)
     return session
 
 
