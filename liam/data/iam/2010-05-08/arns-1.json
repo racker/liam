@@ -7,14 +7,30 @@
     "AccountPasswordPolicy": {},
     "AccountSummary": {},
     "AssumeRolePolicy": {},
-    "Group": {},
+    "Group": {
+      "arn": {
+        "dataPath": ["Arn"]
+      }
+    },
     "GroupPolicy": {},
-    "InstanceProfile": {},
+    "InstanceProfile": {
+      "arn": {
+        "dataPath": ["Arn"]
+      }
+    },
     "LoginProfile": {},
     "MfaDevice": {},
-    "Policy": {},
+    "Policy": {
+      "arn": {
+        "dataPath": ["Arn"]
+      }
+    },
     "PolicyVersion": {},
-    "Role": {},
+    "Role": {
+      "arn": {
+        "dataPath": ["Arn"]
+      }
+    },
     "RolePolicy": {},
     "SamlProvider": {},
     "ServerCertificate": {
@@ -24,7 +40,11 @@
     },
     "SigningCertificate": {},
     "SSHPublicKey": {},
-    "User": {},
+    "User": {
+      "arn": {
+        "dataPath": ["Arn"]
+      }
+    },
     "UserPolicy": {},
     "VirtualMfaDevice": {
       "arn": {
