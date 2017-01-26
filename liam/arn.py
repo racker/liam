@@ -67,10 +67,10 @@ class Arn(object):
 
     def _format_arn(self, format_string):
         required_keys = [
-                k[1]
-                for k in Formatter().parse(format_string)
-                if k[1]
-            ]
+            k[1]
+            for k in Formatter().parse(format_string)
+            if k[1]
+        ]
         mapping = {}
         for key in required_keys:
             if key == 'partition':
@@ -99,6 +99,7 @@ class Arn(object):
             data = data[key]  # TODO: Error handling
         return data
 
+    # pylint:disable=protected-access
     def _get_arn_config(self):
         loader = self.session._loader
         api_version = None  # This forces the latest version
