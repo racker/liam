@@ -1,10 +1,11 @@
 from __future__ import print_function
 import os
 
-
 import boto3
 from botocore.exceptions import ClientError
 import botocore.session
+
+from liam.arn import Arn
 
 
 def setup_boto3_session(creds, region_name=None):
@@ -29,8 +30,12 @@ class Scanner(object):
             self.session = setup_boto3_session(creds)
             self.account_id = self.get_account_id()
 
-    def full_scan(self):
+    def _get_resources(self):
         resources = self.session.get_available_resources()
+        return resources
+
+    def full_scan(self):
+        resources = self._get_resources()
         found = {}
         for resource_name in resources:
             found[resource_name] = {}
@@ -137,4 +142,10 @@ class Collection(object):
                 raise
         if found_resources:
             print(found_resources)
+        for item in found_resources:
+            generated_arn = Arn(session=self.session, boto_resource=item,
+                                account_id=self.account_id).arn
+            if not generated_arn:
+                raise Exception()
+            print("Found arn: {}".format(generated_arn))
         return found_resources

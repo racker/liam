@@ -209,7 +209,7 @@
         "resource": {
           "type": "NatGateway",
           "identifiers": [
-            { "target": "NatGatewayId", "source": "input" }
+            { "target": "Id", "source": "input" }
           ]
         }
       },
@@ -374,7 +374,7 @@
         "resource": {
           "type": "NatGateway",
           "identifiers": [
-            { "target": "NatGatewayId", "source": "response", "path": "NatGateways[].NatGatewayId" }
+            { "target": "Id", "source": "response", "path": "NatGateways[].NatGatewayId" }
           ],
           "path": "NatGateways[]"
         }
@@ -1166,7 +1166,8 @@
     "NatGateway":{
       "identifiers":[
         {
-          "name": "NatGatewayId"
+          "name": "Id",
+          "memberName": "NatGatewayId"
         }
       ],
       "shape": "NatGateway",
@@ -1174,7 +1175,7 @@
         "request": {
           "operation": "DescribeNatGateways",
           "params": [
-            { "target": "NatGatewayIds[0]", "source": "identifier", "name": "NatGatewayId"}
+            { "target": "NatGatewayIds[0]", "source": "identifier", "name": "Id"}
           ]
         },
         "path": "NatGatewayIds[0]"

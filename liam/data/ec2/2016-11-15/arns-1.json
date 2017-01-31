@@ -36,6 +36,11 @@
         "formatString": "arn:{partition}:{service}:{region}:{account_id}:key-pair/{name}"
       }
     },
+    "NatGateway": {
+      "arn": {
+        "formatString": "arnt:{partition}:{service}:{region}:{account_id}:nat-gateway/{id}"
+      }
+    },
     "NetworkAcl": {
       "arn": {
         "formatString": "arn:{partition}:{service}:{region}:{account_id}:network-acl/{id}"

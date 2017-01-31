@@ -3,7 +3,7 @@
   "resources": {
     "Cluster": {
       "arn": {
-        "dataPath": ["ClusterArn"]
+        "dataPath": ["clusterArn"]
       }
     }
   }

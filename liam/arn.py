@@ -1,4 +1,5 @@
 from string import Formatter
+
 from boto3.exceptions import ResourceLoadException
 
 
@@ -125,5 +126,5 @@ class Arn(object):
             arn = self._format_arn(format_string)
         else:
             # Don't go chasing waterfarns
-            raise NotImplementedError()
+            raise NotImplementedError(str(self.boto_resource))
         return arn

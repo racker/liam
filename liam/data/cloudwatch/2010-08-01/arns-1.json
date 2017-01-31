@@ -6,6 +6,10 @@
         "dataPath": ["AlarmArn"]
       }
     },
-    "Metric": {}
+    "Metric": {
+      "arn": {
+        "formatString": "arnt:{partition}:{service}:{region}:{account_id}:metric:{namespace}:{name}"
+      }
+    }
   }
 }
