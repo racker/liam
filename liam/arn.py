@@ -1,17 +1,28 @@
 from string import Formatter
 
 from boto3.exceptions import ResourceLoadException
+import six
+
+from liam import exception
 
 
 def _parse_components(arn):
     return arn.split(':', 5)
 
 
-class ARN(object):
+class ArnParser(object):
 
     def __init__(self, arn):
+        if not isinstance(arn, six.string_types):
+            raise exception.InvalidArn("Provided arn not a string")
         self.arn = arn
         self.components = _parse_components(self.arn)
+        if len(self.components) != 6:
+            raise exception.InvalidArn("Provided arn is incomplete")
+
+    @property
+    def scheme(self):
+        return self.components[0]
 
     @property
     def partition(self):
