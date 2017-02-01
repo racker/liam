@@ -86,7 +86,7 @@ setuptools.setup(**{
     'version': ABOUT['__version__'],
     'package_data': {
         'liam': [
-            'data/*',
+            'data/*/*/*',
         ]
     }
 })
