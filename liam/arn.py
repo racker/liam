@@ -44,6 +44,19 @@ class ArnParser(object):
     def resource(self):
         return self.components[5]
 
+    @property
+    def boto_service_name(self):
+        # because the arn can translate to multiple underlying boto services
+        # we need to handle those cases
+        if self.service == 'elasticloadbalancing':
+            # This is awful and I feel bad for writing it. buuut it works
+            if len(self.resource.split("/")) > 2:
+                return 'elbv2'
+            else:
+                return 'elb'
+        else:
+            return self.service
+
 
 # This work is loosely based on a monkey patch put together by Alec Posney
 # https://bitbucket.org/aposney/boto3-arn-patch
