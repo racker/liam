@@ -1,57 +1,81 @@
 from __future__ import print_function
-import os
+import logging
 
-import boto3
 from botocore.exceptions import ClientError
-import botocore.session
 
-from liam.arn import Arn
+from liam import utils
 
-
-def setup_boto3_session(creds, region_name=None):
-    """Gets a boto session with the liam resources inserted"""
-    boto_core_session = botocore.session.get_session()
-    loader = boto_core_session.get_component('data_loader')
-
-    # Because we are overwriting some botocore paginators we need our files to
-    # load first. Append will work fine once changes are merged upstream
-    loader.search_paths.insert(
-        0, os.path.join(os.path.dirname(__file__), 'data')
-    )
-    session = boto3.Session(botocore_session=boto_core_session,
-                            region_name=region_name, **creds)
-    return session
+logging.basicConfig(level=logging.DEBUG)
+LOG = logging.getLogger(__name__)
+logging.getLogger('boto').setLevel(logging.CRITICAL)
+logging.getLogger('boto3').setLevel(logging.CRITICAL)
+logging.getLogger('botocore').setLevel(logging.CRITICAL)
 
 
 class Scanner(object):
 
-    def __init__(self, creds, session=None):
-        if not session:
-            self.session = setup_boto3_session(creds)
-            self.account_id = self.get_account_id()
+    def __init__(self, aws_creds, session=None, account_id=None, services=None,
+                 regions=None, collections=None):
+        self.session = session or utils.setup_boto3_session(aws_creds)
+        self.account_id = account_id or self.get_account_id()
+        self.services = services or self.get_available_resources()
+        self.regions = regions
+        self.collections = collections
+        self.found_resources = []
+        self.found_arns = []
 
     def _get_resources(self):
         resources = self.session.get_available_resources()
         return resources
 
-    def full_scan(self):
-        resources = self._get_resources()
-        found = {}
-        for resource_name in resources:
-            found[resource_name] = {}
-            for region_name in self.session.get_available_regions(
-                    resource_name):
+    def _init_boto_resource(self, service_name, region_name):
+        return self.session.resource(service_name, region_name)
 
-                resource = Resource(
-                    service_name=resource_name,
-                    region_name=region_name,
-                    account_id=self.account_id,
-                    session=self.session
-                )
-                found_items = resource.scan()
-                found[resource_name][region_name] = found_items
-            print(found)
-        return found
+    def _get_scan_regions(self, service_name):
+        if self.regions:
+            return self.regions
+        return self.get_available_regions(service_name=service_name)
+
+    def _get_scan_collections(self, resource):
+        if self.collections:
+            return self.collections
+        return utils.get_available_collections(resource)
+
+    def scan(self, return_arns=False):
+        self.found_resources = []
+        for service_name in self.services:
+            for region_name in self._get_scan_regions(service_name):
+                resource = self._init_boto_resource(service_name, region_name)
+                for collection_name in self._get_scan_collections(resource):
+                    LOG.debug(
+                        "Scann of {service_name}:{region_name}:{collection_name}".format(  # noqa
+                            service_name=service_name,
+                            region_name=region_name,
+                            collection_name=collection_name
+                        )
+                    )
+                    cm_iterator = utils.get_cm_iterator(
+                        collection_name,
+                        resource,
+                        service_name,
+                        self.account_id
+                    )
+                    try:
+                        for item in cm_iterator:
+                            self.found_resources.append(item)
+                            LOG.debug("Found {}".format(str(item)))
+                    except ClientError as exc:
+                        if 'is not supported in this region' in exc.message:
+                            LOG.warning(
+                                "{}:{} not supported in {}. Skipping".format(
+                                    service_name, collection_name, region_name)
+                            )
+                        else:
+                            raise
+        if return_arns:
+            return utils.generate_arns(self.session, self.found_resources,
+                                       self.account_id)
+        return self.found_resources
 
     def get_account_id(self):
         return self.session.client('sts').get_caller_identity().get('Account')
@@ -64,88 +88,3 @@ class Scanner(object):
 
     def get_available_resources(self):
         return self.session.get_available_resources()
-
-
-class Resource(object):
-    def __init__(self, service_name, region_name, account_id, session):
-        self.service_name = service_name
-        self.region_name = region_name
-        self.account_id = account_id
-        self.session = session
-        self.boto_resource = self._init_boto_resource()
-
-    def _init_boto_resource(self):
-        return self.session.resource(self.service_name, self.region_name)
-
-    def get_available_collections(self):
-        return self.boto_resource.meta.resource_model.collections
-
-    def scan(self):
-        found = []
-        for boto_collection in self.get_available_collections():
-            col_obj = Collection(
-                service_name=self.service_name,
-                region_name=self.region_name,
-                account_id=self.account_id,
-                collection_name=boto_collection.name,
-                session=self.session
-            )
-            found_items = col_obj.scan()
-            found.extend(found_items)
-        return found
-
-
-class Collection(object):
-    def __init__(self, service_name, region_name, account_id, collection_name,
-                 session):
-
-        self.service_name = service_name
-        self.region_name = region_name
-        self.collection_name = collection_name
-        self.account_id = account_id
-        self.session = session
-        self.boto_resource = self._init_boto_resource()
-        self.collection_manager = self._init_collection_manager()
-
-    def _init_collection_manager(self):
-        return getattr(self.boto_resource, self.collection_name)
-
-    def _init_boto_resource(self):
-        return self.session.resource(self.service_name, self.region_name)
-
-    def get_iterator(self, filter_by_owner=True):
-        if not filter_by_owner:
-            return self.collection_manager.all()
-
-        if self.service_name == 'ec2' and self.collection_name == 'images':
-            iterator = self.collection_manager.filter(Owners=['self'])
-        elif (self.service_name == 'ec2' and
-              self.collection_name == 'snapshots'):
-            iterator = self.collection_manager.filter(
-                OwnerIds=[self.account_id])
-        else:
-            iterator = self.collection_manager.all()
-        return iterator
-
-    def scan(self):
-        print("Gathering {}/{}/{}".format(self.service_name, self.region_name,
-                                          self.collection_name))
-
-        found_resources = []
-        try:
-            for item in self.get_iterator(self.collection_manager):
-                found_resources.append(item)
-        except ClientError as exc:
-            if 'is not supported in this region' in exc.message:
-                pass
-            else:
-                raise
-        if found_resources:
-            print(found_resources)
-        for item in found_resources:
-            generated_arn = Arn(session=self.session, boto_resource=item,
-                                account_id=self.account_id).arn
-            if not generated_arn:
-                raise Exception()
-            print("Found arn: {}".format(generated_arn))
-        return found_resources

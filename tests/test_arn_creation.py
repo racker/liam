@@ -3,7 +3,8 @@ import unittest
 from botocore.stub import Stubber, ANY
 import moto
 
-from liam import arn, setup_boto3_session
+from liam import arn
+from liam.utils import setup_boto3_session
 
 
 class TestArnCreation(unittest.TestCase):
