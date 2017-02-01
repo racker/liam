@@ -28,6 +28,10 @@ def get_available_regions(service_name, partition_name='aws',
     return regions
 
 
+def get_available_resources():
+    return setup_boto3_session({}).get_available_resources()
+
+
 def setup_boto3_session(creds, region_name=None):
     """Gets a boto session with the liam resources inserted"""
     boto_core_session = botocore.session.get_session()
