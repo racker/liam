@@ -54,14 +54,14 @@ class Scanner(object):
                             collection_name=collection_name
                         )
                     )
-                    cm_iterator = utils.get_cm_iterator(
+                    collection_iterator = utils.get_collection_iterator(
                         collection_name,
                         resource,
                         service_name,
                         self.account_id
                     )
                     try:
-                        for item in cm_iterator:
+                        for item in collection_iterator:
                             self.found_resources.append(item)
                             LOG.debug("Found {}".format(str(item)))
                     except ClientError as exc:

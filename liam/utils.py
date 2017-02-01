@@ -47,8 +47,8 @@ def setup_boto3_session(creds, region_name=None):
     return session
 
 
-def get_cm_iterator(collection_name, boto_resource, service_name, account_id,
-                    filter_by_owner=True):
+def get_collection_iterator(collection_name, boto_resource, service_name,
+                            account_id, filter_by_owner=True):
     # TODO: This is ugly and just fixes edge cases for now. This needs cleaning
     collection_manager = init_collection_manager(
         boto_resource, collection_name)
