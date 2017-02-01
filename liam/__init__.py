@@ -48,7 +48,7 @@ class Scanner(object):
                 resource = self._init_boto_resource(service_name, region_name)
                 for collection_name in self._get_scan_collections(resource):
                     LOG.debug(
-                        "Scann of {service_name}:{region_name}:{collection_name}".format(  # noqa
+                        "Scan of {service_name}:{region_name}:{collection_name}".format(  # noqa
                             service_name=service_name,
                             region_name=region_name,
                             collection_name=collection_name
