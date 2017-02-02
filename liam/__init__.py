@@ -34,7 +34,12 @@ class Scanner(object):
     def _get_scan_regions(self, service_name):
         if self.regions:
             return self.regions
-        return self.get_available_regions(service_name=service_name)
+        regions = self.get_available_regions(service_name=service_name)
+
+        # Removing local regions as it is out of liam's purview
+        regions.remove("local")
+
+        return regions
 
     def _get_scan_collections(self, resource):
         if self.collections:
