@@ -37,7 +37,8 @@ class Scanner(object):
         regions = self.get_available_regions(service_name=service_name)
 
         # Removing local regions as it is out of liam's purview
-        regions.remove("local")
+        if 'local' in regions:
+            regions.remove("local")
 
         return regions
 
