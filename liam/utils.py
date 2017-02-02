@@ -25,6 +25,10 @@ def get_available_regions(service_name, partition_name='aws',
     # In the case of global services we want the region to be an empty string
     if not regions:
         regions = ['']
+
+    # Removing local regions as it is out of liam's purview
+    regions.remove("local")
+
     return regions
 
 
