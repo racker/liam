@@ -2,7 +2,7 @@
 
 # Copyright 2015 Rackspace US, Inc.
 
-"""Janus Python client packaging and installation."""
+"""Liam Python client packaging and installation."""
 
 import os
 import subprocess
@@ -84,4 +84,9 @@ setuptools.setup(**{
     'tests_require': TEST_REQUIRES + STYLE_REQUIRES,
     'url': ABOUT['__url__'],
     'version': ABOUT['__version__'],
+    'package_data': {
+        'liam': [
+            'data/*/*/*',
+        ]
+    }
 })

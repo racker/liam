@@ -1,16 +1,28 @@
 from string import Formatter
+
 from boto3.exceptions import ResourceLoadException
+import six
+
+from liam import exception
 
 
 def _parse_components(arn):
     return arn.split(':', 5)
 
 
-class ARN(object):
+class ArnParser(object):
 
     def __init__(self, arn):
+        if not isinstance(arn, six.string_types):
+            raise exception.InvalidArn("Provided arn not a string")
         self.arn = arn
         self.components = _parse_components(self.arn)
+        if len(self.components) != 6:
+            raise exception.InvalidArn("Provided arn is incomplete")
+
+    @property
+    def scheme(self):
+        return self.components[0]
 
     @property
     def partition(self):
@@ -31,6 +43,19 @@ class ARN(object):
     @property
     def resource(self):
         return self.components[5]
+
+    @property
+    def boto_service_name(self):
+        # because the arn can translate to multiple underlying boto services
+        # we need to handle those cases
+        if self.service == 'elasticloadbalancing':
+            # This is awful and I feel bad for writing it. buuut it works
+            if len(self.resource.split("/")) > 2:
+                return 'elbv2'
+            else:
+                return 'elb'
+        else:
+            return self.service
 
 
 # This work is loosely based on a monkey patch put together by Alec Posney
@@ -125,5 +150,5 @@ class Arn(object):
             arn = self._format_arn(format_string)
         else:
             # Don't go chasing waterfarns
-            raise NotImplementedError()
+            raise NotImplementedError(str(self.boto_resource))
         return arn

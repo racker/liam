@@ -4,6 +4,7 @@ disable=
   locally-disabled,
   fixme,
   duplicate-code,
+  logging-format-interpolation,
   missing-docstring, ; Ignoring missing doc strings until the library stabilizes
 
 [BASIC]
