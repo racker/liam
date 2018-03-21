@@ -34,8 +34,8 @@ _sha1_keyword(ABOUT, SRC_DIR)
 
 
 INSTALL_REQUIRES = [
-    'boto3<1.5.0',
-    'botocore<1.6.0',
+    'boto3>=1.6.12',
+    'botocore>=1.9.12',
 ]
 
 
