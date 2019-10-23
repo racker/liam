@@ -79,7 +79,9 @@ def generate_arn(session, boto_resource, account_id):
 def generate_arns(session, boto_objects, account_id):
     arns = []
     for obj in boto_objects:
-        arns.append(generate_arn(session, obj, account_id))
+        arn = generate_arn(session, obj, account_id)
+        if arn:
+            arns.append(arn)
     return arns
 
 

@@ -1,6 +1,7 @@
 from string import Formatter
 
 from boto3.exceptions import ResourceLoadException
+from botocore.exceptions import ClientError
 import six
 
 from liam import exception
@@ -144,7 +145,12 @@ class Arn(object):
 
         if data_path:
             # If the Arn already exists as part of the response lets use that
-            arn = self._get_data_path(data_path)
+            try:
+                arn = self._get_data_path(data_path)
+            except ClientError as exc:
+                if 'NotFound' in str(exc):
+                    return
+                raise
         elif format_string:
             # When if doubt Try to format it out
             arn = self._format_arn(format_string)
