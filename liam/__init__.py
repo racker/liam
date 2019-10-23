@@ -5,7 +5,7 @@ from botocore.exceptions import ClientError
 
 from liam import utils
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 LOG = logging.getLogger(__name__)
 logging.getLogger('boto').setLevel(logging.CRITICAL)
 logging.getLogger('boto3').setLevel(logging.CRITICAL)
@@ -53,7 +53,7 @@ class Scanner(object):
             for region_name in self._get_scan_regions(service_name):
                 resource = self._init_boto_resource(service_name, region_name)
                 for collection_name in self._get_scan_collections(resource):
-                    LOG.debug(
+                    LOG.info(
                         "Scan of {service_name}:{region_name}:{collection_name}".format(  # noqa
                             service_name=service_name,
                             region_name=region_name,
@@ -69,7 +69,7 @@ class Scanner(object):
                     try:
                         for item in collection_iterator:
                             self.found_resources.append(item)
-                            LOG.debug("Found {}".format(str(item)))
+                            LOG.info("Found {}".format(str(item)))
                     except ClientError as exc:
                         if 'is not supported in this region' in exc.message:
                             LOG.warning(
