@@ -71,7 +71,7 @@ class Scanner(object):
                             self.found_resources.append(item)
                             LOG.info("Found {}".format(str(item)))
                     except ClientError as exc:
-                        if 'is not supported in this region' in exc.message:
+                        if 'is not supported in this region' in str(exc):
                             LOG.warning(
                                 "{}:{} not supported in {}. Skipping".format(
                                     service_name, collection_name, region_name)
