@@ -53,10 +53,8 @@ class ArnParser(object):
             # This is awful and I feel bad for writing it. buuut it works
             if len(self.resource.split("/")) > 2:
                 return 'elbv2'
-            else:
-                return 'elb'
-        else:
-            return self.service
+            return 'elb'
+        return self.service
 
 
 # This work is loosely based on a monkey patch put together by Alec Posney
@@ -149,7 +147,7 @@ class Arn(object):
                 arn = self._get_data_path(data_path)
             except ClientError as exc:
                 if 'NotFound' in str(exc):
-                    return
+                    return None
                 raise
         elif format_string:
             # When if doubt Try to format it out
